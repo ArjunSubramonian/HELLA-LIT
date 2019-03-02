@@ -1,25 +1,9 @@
-<!--
-Copyright 2018 IBM Corp. All Rights Reserved.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
--->
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-    <title>MAX Image Caption Generator</title>
+    <title>HELLA LIT 🔥</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="static/favicon.ico"/>
 
@@ -46,21 +30,19 @@ limitations under the License.
 
         <div class="row">
 
-            <div class="col-md-7">
+            <h1>HELLA LIT 🔥</h1>
+                
+        </div>
 
-                <div class="col-md-4 title-section">
-                    <h1>HELLA LIT🔥</h1>
-                </div>
+        <div class="row">
 
-
-                <div class="col-md-5">
+            <div class="col-md-5">
 
                     <div id="file-upload" class="panel panel-default">
 
                         <div class="panel-heading">
                             <div class="panel-title">
                                 Upload A New Image
-                                <span class="info-icon" title="User uploaded images are removed after one day">&#9432;</span>
                             </div>
 
                         </div>
@@ -68,11 +50,28 @@ limitations under the License.
                         <div class="panel-body">
                             <form id="img-upload" enctype="multipart/form-data">
                                 <div class="form-group">
+                                    <label id="cover" for="file-input">Choose an image!</label>
+                                    <script>
+                                        function readURL(input) {
+                                            if (input.files && input.files[0]) {
+                                                var reader = new FileReader();
+
+                                                reader.onload = function (e) {
+                                                    $('#img')
+                                                        .attr('src', e.target.result);
+                                                };
+
+                                                reader.readAsDataURL(input.files[0]);
+                                            }
+                                        }
+                                    </script>
                                     <input id="file-input"
                                            type="file"
+                                           onchange="readURL(this);"
                                            name="file"
                                            accept=".png, .jpg, .jpeg"
                                            multiple />
+                                        <img id="img" src="#" width="200" alt="your image" />
                                 </div>
                                 <button id="file-submit" type="submit" class="btn btn-primary auth-btn" disabled>Submit</button>
                             </form>
@@ -81,12 +80,6 @@ limitations under the License.
                     </div>
 
                 </div>
-
-            </div>
-
-        </div>
-
-        <div class="row">
 
             <div class="col-md-7">
 
@@ -116,24 +109,7 @@ limitations under the License.
 
             </div>
 
-            <div class="col-md-5">
-
-                <div>
-                    <div id="word-cloud" class="col-md-6"></div>
-                </div>
-
-            </div>
-
         </div>
-
-        <footer class="footer">
-            <hr/>
-            <p style="float:left">Created at the IBM Center for Open-Source Data & AI Technologies</p>
-            <p style="float:right">
-                Source code available on
-                <a href="https://github.com/IBM/MAX-Image-Caption-Generator-Web-App" target="_blank">GitHub</a>
-            </p>
-        </footer>
 
     </div>
 

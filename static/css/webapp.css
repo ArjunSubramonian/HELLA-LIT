@@ -1,41 +1,30 @@
-/*
- * Copyright 2018 IBM Corp. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,400i,700,700i');
 
-/* Style sheet for MAX Image Caption Generator Web App */
-
-body {
-    font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+html, head, body {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0 !important;
+    background: #000;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 400;
+    color: #FFFFFF;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .container-fluid {
     padding: 1% 2%;
 }
 
-#codait-logo {
-    min-width: 162px;
-    min-height: 150px;
+.row {
+    margin: 0 auto;
 }
 
-#codait-logo img {
-    width: 162px;
-    height: 150px;
-}
-
-.title-section h1 {
+h1 {
     margin-top: 10px;
+    text-align: center;
 }
 
 .panel-title {
@@ -48,8 +37,41 @@ body {
   cursor: help;
 }
 
-#word-cloud {
-    text-align: center;
+.panel-heading {
+    background-color: #5FBFBB !important;
+    color: #FFFFFF !important;
+}
+
+#file-upload {
+    margin: -1px !important;
+    padding: 0 !important;
+    border: none !important;
+}
+
+#cover {
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 6px;
+    background-color: #26A8A2;
+    border-color: #32A8A3;
+    white-space: normal;
+}
+
+#cover:hover {
+    background-color: #1E8B87;
+    border-color: #24D8B89;
+}
+
+#file-input {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+.col-md-5 {
+    margin: -1px !important;
+    padding: 0 !important;
+    border: none !important;
 }
 
 #thumbnails .select-buttons button {
