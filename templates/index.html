@@ -142,36 +142,6 @@
         }
     </script>
 
-    <!--script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script-->
-
-    <script>
-        $(".new").on("click", function() {
-            console.log(document.getElementById("caption").value)
-            $.ajax({
-                url: "/upload",
-                method: "post",
-                processData: false,
-                contentType: false,
-                data: {"file_name": document.getElementById("zoom").src, "caption": document.getElementById("caption").value}
-                processData: false,
-                dataType: "json",
-                headers: {
-                    'Access-Control-Allow-Credentials' : true,
-                    'Access-Control-Allow-Origin':'*',
-                    'Access-Control-Allow-Methods':'POST',
-                    'Access-Control-Allow-Headers':'application/json',
-                },
-                success: function(data) {
-                    add_thumbnails(data);
-                    set_img_picker();
-                },
-                error: function() {
-                   console.log("Oops, something went wrong!");
-                }
-            })
-        });
-    </script>
-
 </body>
 
 </html>

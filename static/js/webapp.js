@@ -154,7 +154,24 @@ function set_img_picker() {
         initialized: function() {
             $(".thumbnail").each(function() {
                 var img_file = $(this).children('img').attr('src');
-                $("<a href='#'/>")
+                $("<a href='#'/>").featherlight({
+                        afterContent: function(event) {
+                        $(".new").on("click", function() {
+                            console.log(document.getElementById("zoom").src)
+                            console.log(document.getElementById("caption").value)
+                            var originalSrc = document.getElementById("zoom").src;
+                            var modifiedSrc = originalSrc.substring(originalSrc.indexOf("static"))
+                            console.log("Sending url " + modifiedSrc)
+                            $('#thumbnails select').prepend($("<option></option>")
+                                .attr("data-img-src", modifiedSrc)
+                                .attr("data-img-label", document.getElementById("caption").value)
+                                .attr("data-img-alt", document.getElementById("caption").value)
+                                .attr("value", modifiedSrc)
+                                .text(document.getElementById("caption").value));
+                            set_img_picker();
+                        });
+                     }
+                    })
                     .attr("class", "glyphicon glyphicon-resize-full more-info-icon")
                     .attr("data-featherlight", "/detail?image=" + escape(img_file) + " .image-detail")
                     .prependTo($(this));
