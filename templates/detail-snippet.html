@@ -20,15 +20,61 @@ limitations under the License.
 
     <div style="margin: 25px;">
 
-        <h4>Top 3 Captions Generated:</h4>
+        <!--<h4>Top 3 Captions Generated:</h4>
 
         <ol>
             {% for prediction in predictions %}
-                {% if prediction['index'] == "0" %}<b>{% end %}
+            {% if prediction['index'] == "0" %}<b>{% end %}
                 <li>{{ prediction['caption'] }}</li>
                 {% if prediction['index'] == "0" %}</b>{% end %}
             {% end %}
         </ol>
+         -->
+        
+        <ol>
+            {% for prediction in predictions %}
+            {% if prediction['index'] == "0" %}<b>
+                <textarea id = "caption" type = "text">{{ prediction['caption'] }}</textarea>
+            </b>{% end %}{% end %}
+        </ol>
+        
+        <!--
+        <form>
+            <p>
+            <label>Text Area</label>
+            <textarea> id = "myTextArea"
+                rows = "3"
+                cols = "80">Your text here</textarea>
+            </p>
+            </fieldset>
+        </form>
+         
+         
+         
+         
+         <ol>
+         {% for prediction in predictions %}
+         {% if prediction['index'] == "0" %}<b>{% end %}
+         <li>{{ prediction['caption'] }}</li>
+         {% if prediction['index'] == "0" %}</b>{% end %}
+         {% end %}
+         </ol>
+        -->
+        
+        
+        
+        
+        <div style="text-align:center;">
+            <button id = "button" type= "button">Save Caption</button>
+            <button id = "button" type= "button">Pick a Filter</button>
+            <button id = "button" type= "button">Pick Another Caption</button>
+            <button id = "button" type= "button">Save to Desktop</button>
+            <button id = "button" type= "button">🔥 Feed</button>
+            <a id = "button" href="https://twitter.com/intent/tweet?button_hashtag=picture&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-show-count="false">Tweet #picture</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+        
+        
+        
 
     </div>
 

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Mono:400,400i,700,700i');
+@import url('https://fonts.googleapis.com/css?family=Quicksand');
 
 html, head, body {
     height: 100%;
@@ -6,7 +6,7 @@ html, head, body {
     padding: 0;
     margin: 0 !important;
     background: #000;
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'Quicksand', sans-serif, monospace;
     font-weight: 400;
     color: #FFFFFF;
     overflow: hidden;
@@ -25,10 +25,22 @@ html, head, body {
 h1 {
     margin-top: 10px;
     text-align: center;
+    font-size: 75px;
 }
 
 .panel-title {
     font-size: 18px;
+}
+
+#button
+{
+    font-size: 23px !important;
+    background-color: #000000 !important;
+    color: #FFFFFF !important;
+    text-align: justify !important;
+    text-justify: inter-word !important;
+    outline:none !important;
+    button:focus {outline:0;}
 }
 
 .info-icon {
@@ -148,3 +160,16 @@ a.more-info-icon {
     right: 3em;
     left: unset;
 }
+
+#caption
+{
+    width: 100% !important;
+    color: #000000 !important;
+    text-align: center !important;
+    outline:none !important;
+    button:focus {outline:0;}
+}
+
+
+
+
