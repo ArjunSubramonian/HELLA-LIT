@@ -270,6 +270,10 @@ def clean_up_user_images(user_id=None):
             os.remove(img_file)
         if img_file in image_captions:
             image_captions.pop(img_file)
+    try:
+        os.remove("static/img/images/to_download.jpg")
+    except:
+        pass
 
 
 def clean_up_old_images():
@@ -286,7 +290,6 @@ def clean_up_old_images():
             os.remove(img_file)
             image_captions.pop(img_file)
             logging.info("Deleted expired image: " + img_file)
-
 
 def signal_handler(sig, frame):
     ioloop.IOLoop.current().add_callback_from_signal(shutdown)

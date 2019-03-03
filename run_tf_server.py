@@ -75,10 +75,12 @@ def predict():
                 model_name = (checkpoint_dir.split('/')[1]).split('.')[0]
                 OUT_PATH = in_path.split("PICSUM-")[0] + "PICSUM-" + model_name + "_" + in_path.split("PICSUM-")[1]
                 image.save(OUT_PATH, format="jpeg")
+                image.save("static/img/images/to_download.jpg", format="jpeg")
                 data["prediction"] = OUT_PATH
             except:
                 OUT_PATH = in_path.split("MAX-")[0] + "MAX-" + model_name + "_" + in_path.split("MAX-")[1]
                 image.save(OUT_PATH, format="jpeg")
+                image.save("static/img/images/to_download.jpg", format="jpeg")
                 data["prediction"] = OUT_PATH
 
             # indicate that the request was a success

@@ -41,9 +41,13 @@ limitations under the License.
             <button id = "button" type= "button" onclick="sendData('{{ escape(image) }}', 'models/udnie.ckpt')">Udnie Filter</button>
             <button id = "button" type= "button" onclick="sendData('{{ escape(image) }}', 'models/wave.ckpt')">Wave Filter</button>
             <button id = "button" type= "button" onclick="sendData('{{ escape(image) }}', 'models/wreck.ckpt')">Wreck Filter</button>
-            <button id = "button" type= "button">Save to Desktop</button>
-            <button id = "button" type= "button">🔥 Feed</button>
-            <a id = "button" href="https://twitter.com/intent/tweet?button_hashtag=picture&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-show-count="false">Tweet #picture</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            
+            <a download="saved" href="static/img/images/to_download.jpg">
+                <button id = "button" type= "button">Download</button>
+            </a>
+            
+            <button id = "button" class = "new" type= "button">🔥 Feed</button>
+            <!--a id = "button" href="https://twitter.com/intent/tweet?button_hashtag=picture&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-show-count="false">Tweet #picture</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script-->
         </div>
    
     </div>
