@@ -12,3 +12,5 @@ Making a POST request from JS! (And, making a website with minimal prior web dev
 How to make a POST request from JS!
 ## What's next for Hella Lit
 Integration with Instagram and Twitter (so our users can share their beautiful images with their circles!)
+
+*Acknowledgement:* Main inspiration drawn from https://github.com/IBM/MAX-Image-Caption-Generator-Web-App?fbclid=IwAR1RCHgdaBT6D5RDte_uc4faiUMS8tE_o2vFUuPgwl-sXTzKqYawWCj0x3w for Web App starter code and integrating IBM caption generator with a website.
