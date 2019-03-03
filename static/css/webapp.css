@@ -170,6 +170,11 @@ a.more-info-icon {
     button:focus {outline:0;}
 }
 
+.image-detail img {
+  display: block;
+  margin: 0 auto;
+}
+
 
 
 

@@ -13,69 +13,41 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
+<html>
+<head>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+</head>
+
+<body>
 
 <div class="image-detail">
 
-    <img src="{{ escape(image) }}" style="max-width: 100%;">
+    <img id="zoom" src="{{ escape(image) }}" style="max-width: 100%;">
 
     <div style="margin: 25px;">
-
-        <!--<h4>Top 3 Captions Generated:</h4>
-
-        <ol>
-            {% for prediction in predictions %}
-            {% if prediction['index'] == "0" %}<b>{% end %}
-                <li>{{ prediction['caption'] }}</li>
-                {% if prediction['index'] == "0" %}</b>{% end %}
-            {% end %}
-        </ol>
-         -->
         
-        <ol>
-            {% for prediction in predictions %}
-            {% if prediction['index'] == "0" %}<b>
-                <textarea id = "caption" type = "text">{{ prediction['caption'] }}</textarea>
-            </b>{% end %}{% end %}
-        </ol>
-        
-        <!--
-        <form>
-            <p>
-            <label>Text Area</label>
-            <textarea> id = "myTextArea"
-                rows = "3"
-                cols = "80">Your text here</textarea>
-            </p>
-            </fieldset>
-        </form>
-         
-         
-         
-         
-         <ol>
-         {% for prediction in predictions %}
-         {% if prediction['index'] == "0" %}<b>{% end %}
-         <li>{{ prediction['caption'] }}</li>
-         {% if prediction['index'] == "0" %}</b>{% end %}
-         {% end %}
-         </ol>
-        -->
-        
-        
-        
+        {% for prediction in predictions %}
+        {% if prediction['index'] == "0" %}<b>
+            <textarea id = "caption" type = "text">{{ prediction['caption'] }}</textarea>
+        </b>{% end %}
+        {% end %}
         
         <div style="text-align:center;">
-            <button id = "button" type= "button">Save Caption</button>
-            <button id = "button" type= "button">Pick a Filter</button>
-            <button id = "button" type= "button">Pick Another Caption</button>
+            <button id = "button" type= "button" onclick="sendData('{{ escape(image) }}', 'models/la_muse.ckpt')">La Muse Filter</button>
+            <button id = "button" type= "button" onclick="sendData('{{ escape(image) }}', 'models/rain_princess.ckpt')">Rain Princess Filter</button>
+            <button id = "button" type= "button" onclick="sendData('{{ escape(image) }}', 'models/scream.ckpt')">Scream Filter</button>
+            <button id = "button" type= "button" onclick="sendData('{{ escape(image) }}', 'models/udnie.ckpt')">Udnie Filter</button>
+            <button id = "button" type= "button" onclick="sendData('{{ escape(image) }}', 'models/wave.ckpt')">Wave Filter</button>
+            <button id = "button" type= "button" onclick="sendData('{{ escape(image) }}', 'models/wreck.ckpt')">Wreck Filter</button>
             <button id = "button" type= "button">Save to Desktop</button>
             <button id = "button" type= "button">🔥 Feed</button>
             <a id = "button" href="https://twitter.com/intent/tweet?button_hashtag=picture&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-show-count="false">Tweet #picture</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         </div>
-        
-        
-        
-
+   
     </div>
-
 </div>
+
+</body>
+</html>

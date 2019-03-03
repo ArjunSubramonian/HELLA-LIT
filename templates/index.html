@@ -22,19 +22,6 @@
     <script src="static/js/cookieconsent.min.js"></script>
     <script src="static/js/webapp.js"></script>
 
-    <!--script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script>
-        jQuery(function($) {
-            $('.image-scroller').bind('scroll', function()
-            {
-                if($(this).scrollTop() + $(this).innerHeight()>=$(this)[0].scrollHeight)
-                {
-                  alert('end reached');
-                }
-            })
-        });
-    </script-->
-
 </head>
 
 <body>
@@ -125,6 +112,35 @@
         </div>
 
     </div>
+
+    <script>
+        function sendData(img, model){
+            $.ajax({
+                //the url to send the data to
+                url: "http://127.0.0.1:5000/predict",
+                //the data to send to
+                data: {"image": img, "model": model},
+                //type. for eg: GET, POST
+                type: "POST",
+                //datatype expected to get in reply form server
+                dataType: "json",
+                headers: {
+                    'Access-Control-Allow-Credentials' : true,
+                    'Access-Control-Allow-Origin':'*',
+                    'Access-Control-Allow-Methods':'POST',
+                    'Access-Control-Allow-Headers':'application/json',
+                },
+                //on success
+                success: function(data){
+                    document.getElementById("zoom").src=data;
+                },
+                //on error
+                error: function(){
+                    console.log("Bad request!")
+                }
+            });
+        }
+    </script>
 
 </body>
 
