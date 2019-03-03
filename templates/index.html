@@ -22,6 +22,19 @@
     <script src="static/js/cookieconsent.min.js"></script>
     <script src="static/js/webapp.js"></script>
 
+    <!--script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+        jQuery(function($) {
+            $('.image-scroller').bind('scroll', function()
+            {
+                if($(this).scrollTop() + $(this).innerHeight()>=$(this)[0].scrollHeight)
+                {
+                  alert('end reached');
+                }
+            })
+        });
+    </script-->
+
 </head>
 
 <body>
@@ -71,7 +84,7 @@
                                            name="file"
                                            accept=".png, .jpg, .jpeg"
                                            multiple />
-                                        <img id="img" src="#" width="200" alt="your image" />
+                                        <img id="img" src="#" width="200" alt="No image selected!" onerror="this.src='https://picsum.photos/200/?random';" />
                                 </div>
                                 <button id="file-submit" type="submit" class="btn btn-primary auth-btn" disabled>Submit</button>
                             </form>

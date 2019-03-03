@@ -33,6 +33,16 @@ try:
 except ImportError:
     import queue
 
+import urllib.request
+import datetime
+import random
+
+import requests
+
+def checkUrl(url):
+    r = requests.head(url)
+    return r.status_code == 200
+
 # Command Line Options
 define("port", default=8088, help="Port the web app will run on")
 define("ml-endpoint", default="http://localhost:5000",
@@ -50,7 +60,9 @@ image_captions = collections.OrderedDict()
 VALID_EXT = ['.png', '.jpg', '.jpeg']
 error_raised = []
 app_cookie = 'max-image-caption-generator-web-app-' + str(uuid.uuid4())
-
+urls_checked = {}
+MAX_IMAGES = 9
+count = 0
 
 class BaseHandler(web.RequestHandler):
     def get_current_user(self):
@@ -74,7 +86,17 @@ class LoginHandler(BaseHandler):
 
 class MainHandler(BaseHandler):
     def get(self):
+        global count
         clean_up_old_images()
+        img_list = list(urls_checked.keys())
+        if count % 2 == 0:
+            count += 1
+            for img_file in img_list:
+                if img_file in image_captions:
+                    image_captions.pop(img_file)
+            prepare_metadata()
+        else:
+            count -= 1
         self.render("index.html", cookie_key=app_cookie,
                     image_captions=get_image_captions(self.current_user))
 
@@ -180,8 +202,14 @@ def valid_file_ext(filename):
 
 def run_ml(img_path):
     """Runs ML on given image"""
-    mime_type = mimetypes.guess_type(img_path)[0]
-    with open(img_path, 'rb') as img_file:
+    try:
+        mime_type = mimetypes.guess_type(img_path)[0]
+        with open(img_path, 'rb') as img_file:
+            file_form = {'image': (img_path, img_file, mime_type)}
+            r = requests.post(url=ml_endpoint, files=file_form)
+    except:
+        mime_type = 'image/jpeg'
+        img_file = urllib.request.urlopen(img_path).read()
         file_form = {'image': (img_path, img_file, mime_type)}
         r = requests.post(url=ml_endpoint, files=file_form)
     try:
@@ -201,19 +229,35 @@ def sort_image_captions():
         sorted(image_captions.items(), key=lambda t: t[0].lower()))
 
 
-def get_image_list():
+def get_uploaded_image_list():
     """Gets list of images with relative paths from static dir"""
     image_list = sorted(os.listdir(static_img_path))
     rel_img_list = [static_img_path + s for s in image_list]
     return rel_img_list
 
+def get_image_list():
+    picsum_img_list = []
+    i = MAX_IMAGES
+    while i > 0:
+        now = datetime.datetime.now()
+        time_value = "&t=\"" + now.isoformat() + "\""
+        img_path = 'https://picsum.photos/200/?image=' + str(random.randint(0, 1001)) + time_value
+        # Check that can access URL
+        if img_path not in urls_checked:
+            urls_checked[img_path] = checkUrl(img_path)
+        if not urls_checked[img_path]:
+            continue
+        picsum_img_list.append(img_path)
+        print(img_path)
+        i -= 1
+    return picsum_img_list
 
 def prepare_metadata():
     """Run all static images through ML"""
     threads = []
 
-    rel_img_list = get_image_list()
-    for img in rel_img_list:
+    picsum_img_list = get_image_list()
+    for img in picsum_img_list:
         t = threading.Thread(target=run_ml, args=(img,))
         threads.append(t)
         t.start()
@@ -231,9 +275,9 @@ def clean_up_user_images(user_id=None):
     If a cookie is given then only the current user's images are deleted
     """
     img_prefix = get_user_img_prefix(user_id) if user_id else temp_img_prefix
-    img_list = get_image_list()
+    img_list = get_uploaded_image_list()
     for img_file in img_list:
-        if img_file.startswith(static_img_path + img_prefix):
+        if img_file in image_captions and img_file.startswith(static_img_path + img_prefix):
             os.remove(img_file)
             image_captions.pop(img_file)
 
@@ -244,10 +288,10 @@ def clean_up_old_images():
     Deletes expired user uploaded files and removes them from the dict
     User uploaded images expire after one day
     """
-    img_list = get_image_list()
+    img_list = get_uploaded_image_list()
     exp_time = time.time() - (24 * 60 * 60)  # 24 * 60 * 60 = 1 day in seconds
     for img_file in img_list:
-        if (img_file.startswith(static_img_path + temp_img_prefix)
+        if img_file in image_captions and (img_file.startswith(static_img_path + temp_img_prefix)
                 and os.stat(img_file).st_ctime < exp_time):
             os.remove(img_file)
             image_captions.pop(img_file)
@@ -285,6 +329,8 @@ def make_app():
 
 
 def main():
+    count = 0
+
     parse_command_line()
 
     global ml_endpoint
@@ -311,7 +357,7 @@ def main():
 
     logging.info("Preparing ML metadata (this may take some time)")
     start = time.time()
-    prepare_metadata()
+    # prepare_metadata()
     end = time.time()
     if error_raised:
         logging.info("Failed to prepare metadata, stopping web server")
